@@ -46,6 +46,10 @@ describe("Product", function () {
     it("Should set the owner of the contract to the sender", async () => {
         expect(await product.owner()).to.be.eq(deployer.address);
     })
+    it("Should emit an event when a new contract Porduct is created", async () => {
+        const newProduct = await productFactory.createProduct(NAME, MARKET_PRICE, DISCOUNTED_PRICE, QUANTITY_TRESHOLD, timestamp + DURATION)
+        expect(newProduct).to.emit(productFactory, "NewProductCreated").withArgs(newProduct.address, NAME)
+    })
     it("Should set the struct ProductInfo for the product", async () => {
         const productInfo = await product.productInfo();
         expect(productInfo.name, productInfo.marketPrice).to.be.eq(NAME, MARKET_PRICE.toString());
@@ -61,6 +65,11 @@ describe("Product", function () {
         })
         it("Should revert if the amout paid is less than the price", async () => {
             await expect(product.participate(QUANTITY_TO_BUY, {value: QUANTITY_TO_BUY * DISCOUNTED_PRICE - 1})).to.be.revertedWithCustomError(product, "AmountSentTooLow")
+        })
+        it("Should emit an event when a participant participate in the group buy", async () => {
+            await expect(product.participate(QUANTITY_TO_BUY, {value: QUANTITY_TO_BUY * DISCOUNTED_PRICE}))
+                .to.emit(product, "ParticipateGroupBuy")
+                .withArgs(deployer.address, QUANTITY_TO_BUY)
         })
         it("Should update the quantitySold state variable by the quantity bought", async () => {
             const quantitySold = await product.quantitySold();
@@ -99,6 +108,12 @@ describe("Product", function () {
             it("Should revert if the person did not participated in the sell", async () => {
                 await expect(product.connect(hacker).evaluateProduct(true)).to.be.revertedWithCustomError(product, "YouDidNotParticipatedInThatOffer")
             });
+            it("Should emit an event when someone vote for conform", async () => {
+                await expect(product.evaluateProduct(true)).to.emit(product, "EvaluateConform").withArgs(deployer.address, QUANTITY_TO_BUY)
+            })
+            it("Should emit an event when someone vote for no conform", async () => {
+                await expect(product.evaluateProduct(false, {value: AMOUNT_TO_LOCK_FOR_VOTING_NO_CONFORM})).to.emit(product, "EvaluateNoConform").withArgs(deployer.address, QUANTITY_TO_BUY)
+            })
             it("Should update the number of vote for conformity", async () => {
                 productConformity = await product.productConformity();
                 const numberOfVoteForConformityBefore = productConformity.conform;
@@ -160,6 +175,13 @@ describe("Product", function () {
             await withdrawTx.wait();
             const balanceContractAfter = await ethers.provider.getBalance(product.address);
             expect(balanceContractAfter).to.be.lt(balanceContractBefore);
+        })
+        it("Should emit an event when the company withdraw the product of the sell", async () => {
+            await time.increase(DURATION + 2*14*24*60*60)
+            const evaluateTx = await product.evaluateProduct(true);
+            await evaluateTx.wait()
+            const withdrawTx = await product.withdrawProductOfSells();
+            expect(withdrawTx).to.emit(product, "ProductOfSellsWithdrawn").withArgs(deployer.address, QUANTITY_TO_BUY * DISCOUNTED_PRICE)
         })
     
     })
