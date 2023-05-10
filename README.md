@@ -21,4 +21,3 @@ Advantages using blockchain for companies:
 
 
 
-
