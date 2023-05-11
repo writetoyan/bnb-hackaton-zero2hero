@@ -2,6 +2,8 @@
 
 pragma solidity 0.8.17;
 
+import './libraries/DealChain.sol';
+
 error OfferEnded();
 error AmountSentTooLow();
 error YouDidNotParticipatedInThatOffer();
@@ -20,27 +22,17 @@ error WithdrawFailed();
 
 contract Product {
 
+    using DealChain for DealChain.ProductInfo;
+    using DealChain for DealChain.ProductConformity;
+
     uint256 constant DELAY_EVALUATION_OPEN = 14 days;
     uint256 constant EVALUATION_PERIOD = 14 days;
     uint256 constant AMOUNT_TO_LOCK_FOR_VOTING_NO_CONFORM = 0.1 ether;
 
-    struct ProductInfo {
-        string name;
-        uint256 marketPrice;
-        uint256 discountedPrice;
-        uint128 quantityTreshold;
-        uint128 endDate;
-    }
-
-    struct ProductConformity {
-        uint256 noConform;
-        uint256 conform;
-    }
-
     uint256 public quantitySold;
     address public owner;
-    ProductInfo public productInfo;
-    ProductConformity public productConformity;
+    DealChain.ProductInfo public productInfo;
+    DealChain.ProductConformity public productConformity;
     mapping(address => uint256) public quantityBought;
     mapping(address => mapping(bool => uint256)) public participantEvaluation;
 
@@ -57,7 +49,7 @@ contract Product {
 
     constructor(address _owner, string memory _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) {
         owner = _owner;
-        ProductInfo memory _productInfo = ProductInfo(_name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
+        DealChain.ProductInfo memory _productInfo = DealChain.ProductInfo(_name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
         productInfo = _productInfo;
     }
 

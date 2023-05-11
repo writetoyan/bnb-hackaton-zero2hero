@@ -2,29 +2,25 @@
 
 pragma solidity 0.8.17;
 
+import './libraries/DealChain.sol';
+
 error YouAlreadySentYourInterest();
 error OnlyTheConcernedCompanyCanAccept();
 
 /// @title PreProduct contract
 /// @notice The objective of this contract is to propose a group buy for a product to a company by showing how many interest there is for it at a certain level of price
 contract PreProduct {
-    
-    struct Request {
-        address company;
-        string name;
-        uint256 queryPrice;
-        function(address, string memory, uint256, uint256, uint128, uint128) external returns (bool) createProduct;
-        uint256 numberOfPotentialBuyer;
-    }
 
-    Request public request;
+    using DealChain for DealChain.Request;
+
+    DealChain.Request public request;
     mapping (address => bool) potentialBuyer;
 
     event ProductOfferCreationAccepted(address indexed company, string indexed productName, uint128 indexed quantityTreshold);
 
     /// @notice This function is used to store different information about the request for creation of a product
     function query(address company, string memory name, uint256 queryPrice, function(address, string memory, uint256, uint256, uint128, uint128) external returns (bool) createProduct) external {
-        request = (Request(company, name, queryPrice, createProduct, 0));
+        request = (DealChain.Request(company, name, queryPrice, createProduct, 0));
     }
 
     /// @notice This function is used to gather the number of people who is interested in a group buy for this product
