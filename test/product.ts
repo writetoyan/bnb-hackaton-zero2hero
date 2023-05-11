@@ -34,7 +34,7 @@ describe("Product", function () {
         await productFactory.deployed();
 
         //Creating a new Product contract from the factory
-        const createProductTx = await productFactory.createProduct(NAME, MARKET_PRICE, DISCOUNTED_PRICE, QUANTITY_TRESHOLD, timestamp + DURATION); 
+        const createProductTx = await productFactory.createProduct(deployer.address, NAME, MARKET_PRICE, DISCOUNTED_PRICE, QUANTITY_TRESHOLD, timestamp + DURATION); 
         await createProductTx.wait();
 
         //Getting an instance of the newly created Product contract
@@ -47,7 +47,7 @@ describe("Product", function () {
         expect(await product.owner()).to.be.eq(deployer.address);
     })
     it("Should emit an event when a new contract Porduct is created", async () => {
-        const newProduct = await productFactory.createProduct(NAME, MARKET_PRICE, DISCOUNTED_PRICE, QUANTITY_TRESHOLD, timestamp + DURATION)
+        const newProduct = await productFactory.createProduct(deployer.address, NAME, MARKET_PRICE, DISCOUNTED_PRICE, QUANTITY_TRESHOLD, timestamp + DURATION)
         expect(newProduct).to.emit(productFactory, "NewProductCreated").withArgs(newProduct.address, NAME)
     })
     it("Should set the struct ProductInfo for the product", async () => {
