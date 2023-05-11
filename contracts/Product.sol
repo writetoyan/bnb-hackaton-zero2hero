@@ -31,6 +31,7 @@ contract Product {
 
     uint256 public quantitySold;
     address public owner;
+    address private treasury;
     DealChain.ProductInfo public productInfo;
     DealChain.ProductConformity public productConformity;
     mapping(address => uint256) public quantityBought;
@@ -47,8 +48,9 @@ contract Product {
     /// @notice Event emitted when participant voted for conform product. The amount comes from people who evaluated the product as non conform but lost
     event EvaluationConformPriceWithdrawn(address participant, uint amount);
 
-    constructor(address _owner, string memory _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) {
+    constructor(address _owner, address _treasury, string memory _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) {
         owner = _owner;
+        treasury = _treasury;
         DealChain.ProductInfo memory _productInfo = DealChain.ProductInfo(_name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
         productInfo = _productInfo;
     }
@@ -111,12 +113,14 @@ contract Product {
     /// @notice The company call this function to withdraw the product of the sells
     /// @dev The function works if the evaluation have a conformity vote of more than 30% and after a voting period of 14 days
     function withdrawProductOfSells() external onlyOwner withdrawFundsRequirement {
-        uint amountToWithdraw = quantitySold * productInfo.discountedPrice;
-        (bool success, ) = payable(address(msg.sender)).call{value: amountToWithdraw}("");
+        uint amountAvailable = quantitySold * productInfo.discountedPrice;
+        uint platformFees = amountAvailable * 500 / 10000;
+        (bool success, ) = payable(address(msg.sender)).call{value: amountAvailable - platformFees}("");
+        (success, ) = payable(treasury).call{value: platformFees}("");
         if (!success) {
             revert WithdrawFailed();
         }
-        emit ProductOfSellsWithdrawn(msg.sender, amountToWithdraw);
+        emit ProductOfSellsWithdrawn(msg.sender, amountAvailable - platformFees);
     }
     
     /// @notice This function is used to let the buyer who voted conform and won to get the amount of BNB locked from people who voted no conform

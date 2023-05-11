@@ -44,6 +44,7 @@ A new Product contract is created from the factory contract. This contract manag
 - When the sells period is over and if the requirements are met, the companies can start shipping the products to the different buyers. This period last 2 weeks.
 - The product of the sells is locked on the contract for another 2 weeks (evaluation period).
 - It can be withdrawn by the company only if there are less than 30% of disatisfied consummer.
+- There is a 5% platform fees that is send to the platform treasury when the company decide to withdraw his funds.
 
 #### Evaluation period
 

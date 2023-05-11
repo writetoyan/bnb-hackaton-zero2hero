@@ -143,12 +143,16 @@ describe("Product Contract", function () {
         let QUANTITY_TO_BUY_BUYER2 = 5;
         let AMOUNT_TO_LOCK_FOR_VOTING_NO_CONFORM = 0.1;
         let AMOUNT_TO_LOCK = QUANTITY_TO_BUY_BUYER2 * AMOUNT_TO_LOCK_FOR_VOTING_NO_CONFORM;
+        let treasury: Contract;
 
         beforeEach(async () => {
             const participateTx = await product.participate(QUANTITY_TO_BUY, {value: QUANTITY_TO_BUY * DISCOUNTED_PRICE});
             await participateTx.wait();
             const participateTx2 = await product.connect(hacker).participate(5, {value: 5 * DISCOUNTED_PRICE});
             await participateTx2.wait();
+            const TreasuryFactory = await ethers.getContractFactory("Treasury");
+            const treasuryAddress = await productFactory.treasury();
+            treasury = TreasuryFactory.attach(treasuryAddress);
         })
 
         it("Should revert if not the owner attempt to withdraw", async () => {
@@ -166,7 +170,7 @@ describe("Product Contract", function () {
             await evaluateTx2.wait();
             await expect(product.withdrawProductOfSells()).to.be.revertedWithCustomError(product, "ThereIsAProblemWithYourProduct")
         })
-        it("Should withdraw to the balance of the contract", async () => {
+        it("Should withdraw the product of the sells to the company", async () => {
             await time.increase(DURATION + 2*14*24*60*60)
             const evaluateTx = await product.evaluateProduct(true);
             await evaluateTx.wait()
@@ -175,6 +179,16 @@ describe("Product Contract", function () {
             await withdrawTx.wait();
             const balanceContractAfter = await ethers.provider.getBalance(product.address);
             expect(balanceContractAfter).to.be.lt(balanceContractBefore);
+        })
+        it("Should withdraw the platform fees to the platform treasury when the company withdraw his product of the sells", async () => {
+            await time.increase(DURATION + 2*14*24*60*60)
+            const evaluateTx = await product.evaluateProduct(true);
+            await evaluateTx.wait()
+            const balanceTreasuryBefore = await ethers.provider.getBalance(treasury.address);
+            const withdrawTx = await product.withdrawProductOfSells();
+            await withdrawTx.wait();
+            const balanceTreasuryAfter = await ethers.provider.getBalance(treasury.address);
+            expect(balanceTreasuryAfter).to.be.gt(balanceTreasuryBefore);
         })
         it("Should emit an event when the company withdraw the product of the sell", async () => {
             await time.increase(DURATION + 2*14*24*60*60)
