@@ -15,7 +15,7 @@ const DURATION = 100
 const QUANTITY_TO_BUY = 10;
 const AMOUNT_TO_LOCK_FOR_VOTING_NO_CONFORM = ethers.utils.parseEther("0.1")
 
-describe("Product", function () {
+describe("Product Contract", function () {
 
     let deployer: SignerWithAddress;
     let hacker: SignerWithAddress;
