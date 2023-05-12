@@ -12,6 +12,10 @@ const config: HardhatUserConfig = {
         url: `${process.env.BNB_RPC_URL}`,
         blockNumber: 28056728
       }
+    },
+    bnb: {
+      url: `${process.env.BNB_TESTNET_RPC_URL}`,
+      accounts: [process.env.PRIVATE_KEY!]
     }
   }
 };
