@@ -8,20 +8,18 @@ export default function Propose() {
 
     const [factoryContract, setFactoryContract] = useState();
 
-
     let provider;
-   
-    //sepolia 0x1B4933dc0803388F28852875C1b678d476BE598E
-    // bnb 0xa8CE401802A01568a93dc68a6E0040118cC274b0
+    let signer;
+
     useEffect(() => {
         const initContract = async () => {
             const { ethereum } = window;
             if (ethereum) {
                 try {
-                    const factoryAddress = "0x1B4933dc0803388F28852875C1b678d476BE598E";
+                    const factoryAddress = "0x5FFf9c7cBe4476B1981D54B90AfaB3d94DA6Ae05";
                     const factoryABI = factoryJson.abi;
                     provider = new ethers.providers.Web3Provider(ethereum);
-                    const signer = provider.getSigner();
+                    signer = provider.getSigner();
                     setFactoryContract(new ethers.Contract(
                         factoryAddress,
                         factoryABI,
@@ -35,26 +33,10 @@ export default function Propose() {
         initContract();
     }, [])
 
-    // setPastEvents(prevArray => [...prevArray, event])
-
-  
-
-    // factoryContract.on("NewPreProductRequested", (company, productName, queryPrice) => {
-    //     let info = {
-    //         company: company,
-    //         productName: productName,
-    //         queryPrice: ethers.utils.formatEther(queryPrice)
-    //     }
-    //     console.log(JSON.stringify(info))
-    // })
-
     return (
         <>
             <ProposeCreate factoryContract={factoryContract} />
             <ProposeTables factoryContract={factoryContract} />
-            
         </>
-
-
     )
 }

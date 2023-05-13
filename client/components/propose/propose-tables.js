@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ethers } from 'ethers';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -10,6 +10,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import * as preProductJson from '../../pages/utils/PreProduct.json';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,8 +36,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ProposeTables({factoryContract}) {
 
   const [pastEvents, setPastEvents] = useState([]);
-  const [id, setId] = useState(0);
+  const [preProductContract, setPreProductContract] = useState();
 
+  // Getting from the logs, the event emitted when a new preProduct is deployed
   const getPastEvent = async () => {
     let filter = await factoryContract.filters.NewPreProductRequested();
     let events = await factoryContract.queryFilter(filter);
@@ -43,40 +46,67 @@ export default function ProposeTables({factoryContract}) {
         setPastEvents(prevArray => [...prevArray, event.args])
         console.log(pastEvents)
     });
-}
+  }
+
+  // Getting the address of the preProduct contract calling the array recording all the contracts deployed on the factory contract 
+  // and using the index from the table.
+  const getContract = async (index) => {
+    try {
+      const preProductABI = preProductJson.abi;
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const preProductAddress = await factoryContract.preProducts(index);
+      setPreProductContract(new ethers.Contract(
+        preProductAddress,
+        preProductABI,
+        signer
+      ));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Calling the function expressInterest from the preProduct contract.
+  const handleConfirmInterest = async (index) => {
+    try {
+      getContract(index);
+      await preProductContract.expressInterest();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
   <>
-    <Button variant='contained' sx={{margin: 3}} onClick={getPastEvent}>Show Pre Products</Button>
+    <Grid sx={{textAlign: 'center'}}>
+      <Button variant='contained' size='large' sx={{margin: 3, marginTop: 8, marginBottom: 8, width: '500px', height: '80px', fontSize: '24px'}} onClick={getPastEvent}>Show Pre Products</Button>
+    </Grid>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Company Wallet address</StyledTableCell>
+            <StyledTableCell align="left">id</StyledTableCell>
+            <StyledTableCell align="right">Company Wallet address</StyledTableCell>
             <StyledTableCell align="right">Product Name</StyledTableCell>
             <StyledTableCell align="right">Query Price</StyledTableCell>
-            <StyledTableCell align="right">Interest</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
             <StyledTableCell align="right"></StyledTableCell>
           </TableRow>
         </TableHead>
-
         <TableBody>
-          {pastEvents.map((event) => (
-            
-              <StyledTableRow key={event.company}>
-                <StyledTableCell component="th" scope="row">
-                  {event.company}
-                </StyledTableCell>
-                <StyledTableCell align="right">{ethers.utils.parseBytes32String(event.productName)}</StyledTableCell>
-                <StyledTableCell align="right">{ethers.utils.formatEther(event.queryPrice)}</StyledTableCell>
-                {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
-              </StyledTableRow>
+          {pastEvents.map((event, index) => (
+            <StyledTableRow key={index}>
+              <StyledTableCell component="th" scope="row">
+                {index}
+              </StyledTableCell>
+              <StyledTableCell align="right">{event.company}</StyledTableCell>
+              <StyledTableCell align="right">{ethers.utils.parseBytes32String(event.productName)}</StyledTableCell>
+              <StyledTableCell align="right">{ethers.utils.formatEther(event.queryPrice)}</StyledTableCell>
+              <StyledTableCell align="right">
+                <Button onClick={() => handleConfirmInterest(index)}> Confirm interest </Button>
+              </StyledTableCell>
+            </StyledTableRow>  
           ))}
         </TableBody>
-
       </Table>
     </TableContainer>
   </>

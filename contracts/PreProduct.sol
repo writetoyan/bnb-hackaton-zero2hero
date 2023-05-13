@@ -26,9 +26,10 @@ contract PreProduct {
     /// @notice This function is used to gather the number of people who is interested in a group buy for this product
     /// @dev Each address can only call this function once
     function expressInterest() external {
-        if (potentialBuyer[msg.sender]) {
+        if (potentialBuyer[msg.sender] == true) {
             revert YouAlreadySentYourInterest();
         }
+        potentialBuyer[msg.sender] = true;
         request.numberOfPotentialBuyer += 1;
     }
 
