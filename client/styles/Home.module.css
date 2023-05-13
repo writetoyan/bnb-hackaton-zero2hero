@@ -1,4 +1,8 @@
-.container {
+.h1 {
+  color: white;
+  padding-left: 10px;
+}
+/* .container {
   padding: 0 2rem;
 }
 
@@ -126,4 +130,4 @@
   .logo img {
     filter: invert(1);
   }
-}
+} */

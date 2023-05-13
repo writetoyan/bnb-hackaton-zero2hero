@@ -14,9 +14,12 @@ export default function ConnectButton() {
                 await ethereum.request({ method: "eth_requestAccounts" })
                 setIsConnected(true);
                 let connectButton = document.getElementById('connectButton');
-                connectButton.innerHTML = 'Wallet connected! '
+                connectButton.innerHTML = 'Wallet connected!';
                 let connectedProvider = new ethers.providers.Web3Provider(window.ethereum);
                 setSigner(connectedProvider.getSigner());
+                let accounts = await connectedProvider.send("eth_requestAccounts", []);
+                let account = accounts[0];
+                console.log("account ==>" + account);
             } catch (error) {
                 console.error(error);
             } 
