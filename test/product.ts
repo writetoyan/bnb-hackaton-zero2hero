@@ -7,7 +7,7 @@ import { time } from "@nomicfoundation/hardhat-network-helpers";
 
 dotenv.config();
 
-const NAME = "Product Test";
+const NAME = ethers.utils.formatBytes32String("Product Test");
 const MARKET_PRICE = 10;
 const DISCOUNTED_PRICE = 7;
 const QUANTITY_TRESHOLD = 200;

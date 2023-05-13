@@ -16,6 +16,10 @@ const config: HardhatUserConfig = {
     bnb: {
       url: `${process.env.BNB_TESTNET_RPC_URL}`,
       accounts: [process.env.PRIVATE_KEY!]
+    },
+    sepolia: {
+      url: `${process.env.SEPOLIA_RPC_URL}`,
+      accounts: [process.env.PRIVATE_KEY_TEST!]
     }
   }
 };

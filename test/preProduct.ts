@@ -6,7 +6,7 @@ import { expect } from 'chai';
 
 dotenv.config();
 
-const productName = "request test";
+const productName = ethers.utils.formatBytes32String("request test");
 const requestedPrice = 12;
 const marketPrice = 15;
 const quantityTreshold = 2000;

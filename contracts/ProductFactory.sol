@@ -15,16 +15,16 @@ contract ProductFactory {
     PreProduct[] public preProducts;
 
     /// @notice Event emitted when a new product is created
-    event NewProductCreated(address indexed product, string indexed name);
+    event NewProductCreated(address indexed product, bytes32 indexed name);
     /// @notice Eent emitted when a pre product is requested
-    event NewPreProductRequested(address indexed company, string indexed productName, uint256 queryPrice);
+    event NewPreProductRequested(address indexed company, bytes32 indexed productName, uint256 queryPrice);
 
     constructor() {
         treasury = new Treasury();
     }
 
     /// @notice Main function used to deploy a new Product contract
-    function createProduct(address company, string memory _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) external returns (bool productCreated) {
+    function createProduct(address company, bytes32 _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) external returns (bool productCreated) {
         Product product = new Product(company, address(treasury), _name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
         products.push(product);
         emit NewProductCreated(address(product), _name);
@@ -34,7 +34,7 @@ contract ProductFactory {
     /// @notice Everyone can create a preProduct to gather interest in a product from a company
     /// @notice If this shows enough interest, the company can accept and a normal Product will be created
     /// @dev The callback function is triggered when the company accept to create one on the PreProduct contract
-    function requestCreateProduct(address _company, string memory _name, uint256 _queryPrice) external {
+    function requestCreateProduct(address _company, bytes32 _name, uint256 _queryPrice) external {
         PreProduct preProduct = new PreProduct();
         preProducts.push(preProduct);
         preProduct.query(_company, _name, _queryPrice, this.createProduct);

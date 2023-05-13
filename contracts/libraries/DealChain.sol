@@ -6,14 +6,14 @@ library DealChain {
 
     struct Request {
         address company;
-        string name;
+        bytes32 name;
         uint256 queryPrice;
-        function(address, string memory, uint256, uint256, uint128, uint128) external returns (bool) createProduct;
+        function(address, bytes32, uint256, uint256, uint128, uint128) external returns (bool) createProduct;
         uint256 numberOfPotentialBuyer;
     }
 
     struct ProductInfo {
-        string name;
+        bytes32 name;
         uint256 marketPrice;
         uint256 discountedPrice;
         uint128 quantityTreshold;

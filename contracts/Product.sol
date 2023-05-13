@@ -48,7 +48,7 @@ contract Product {
     /// @notice Event emitted when participant voted for conform product. The amount comes from people who evaluated the product as non conform but lost
     event EvaluationConformPriceWithdrawn(address participant, uint amount);
 
-    constructor(address _owner, address _treasury, string memory _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) {
+    constructor(address _owner, address _treasury, bytes32 _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) {
         owner = _owner;
         treasury = _treasury;
         DealChain.ProductInfo memory _productInfo = DealChain.ProductInfo(_name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);

@@ -16,10 +16,10 @@ contract PreProduct {
     DealChain.Request public request;
     mapping (address => bool) potentialBuyer;
 
-    event ProductOfferCreationAccepted(address indexed company, string indexed productName, uint128 indexed quantityTreshold);
+    event ProductOfferCreationAccepted(address indexed company, bytes32 productName, uint128 indexed quantityTreshold);
 
     /// @notice This function is used to store different information about the request for creation of a product
-    function query(address company, string memory name, uint256 queryPrice, function(address, string memory, uint256, uint256, uint128, uint128) external returns (bool) createProduct) external {
+    function query(address company, bytes32 name, uint256 queryPrice, function(address, bytes32, uint256, uint256, uint128, uint128) external returns (bool) createProduct) external {
         request = (DealChain.Request(company, name, queryPrice, createProduct, 0));
     }
 
