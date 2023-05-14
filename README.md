@@ -1,5 +1,10 @@
 # DEALCHAIN
 
+
+Website: https://dealchain.vercel.app
+
+Video demo: https://youtu.be/LWVUgorBIcc
+
 ## Project abstract: 
 
 This project is about to empower e-commerce with the blockchain technology to have more transparancy, security and efficiency when buying online. We are targeting group buying business model. Companies can offer product sells on discount if a treshold is obtained or buyers can group together to offer to buy a product from a target company.
