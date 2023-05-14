@@ -1,31 +1,40 @@
-import { Grid } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import styles from '../styles/product.module.css'
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import Button from '@mui/material/Button';
 import * as productJson from '../pages/utils/Product.json'
+import Link from 'next/link'
 
 export default function Product({factoryContract, company, name, price, index}) {
 
-  const [producContract, setProductContract] = useState();
+  const [productContract, setProductContract] = useState();
   const [quantitySold, setQuantitySold] = useState();
   const [showDetail, setShowDetail] = useState(false);
   const [treshold, setTreshold] = useState();
+  const [amount, setAmount] = useState();
 
+ const handleAmount = event => {
+  event.preventDefault();
+  setAmount(event.target.value)
+ }
+
+ // To show the amount sold and the treshold
  const updateInfo = async (e) => {
   e.preventDefault();
   setShowDetail(true)
    try {
      getContract(index);
-     setQuantitySold((await producContract.quantitySold()).toString());
-     const struct = await producContract.productInfo();
+     setQuantitySold((await productContract.quantitySold()).toString());
+     const struct = await productContract.productInfo();
      setTreshold((ethers.utils.formatEther((struct.quantityTreshold).toString())));
    } catch (error) {
      console.error(error);
    }
  } 
 
+ //Get an instance of the product contract
   const getContract = async (index) => {
     try {
     const productABI = productJson.abi;
@@ -61,7 +70,11 @@ export default function Product({factoryContract, company, name, price, index}) 
                 <div className={styles.saleQuantity}>Quantity treshold: {treshold}</div>
               </>
               : <div></div>}
-            
+          </Grid>
+          <Grid >
+            <Link href={`/app/product/${index}`}> 
+              <Button size="large" variant="contained" sx={{margin: 2, color: "#F2BC07", ":hover": {bgcolor: 'black'}, background: 'black'}}>Participate in the sell</Button>
+            </Link>
           </Grid>
         </Grid>
       </a>

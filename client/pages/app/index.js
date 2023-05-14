@@ -9,7 +9,8 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import * as factoryJson from '../utils/ProductFactory.json';
 import Layout from '../../components/Layout';
-import Button from '@mui/material/Button'
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,7 +23,8 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Home() {
 
   const [factoryContract, setFactoryContract] = useState();
-  const [productCreated, setProductCreated] = useState([])
+  const [productCreated, setProductCreated] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   let provider;
 
   useEffect(() => {
@@ -58,8 +60,10 @@ export default function Home() {
 
   const handleTrendingSales = async () => {
     getProductCreated();
-    // const getProduct = await factoryContract.products();
-    // console.log(productCreated)
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 8000)
   } 
 
   return (
@@ -69,7 +73,9 @@ export default function Home() {
       <div className={styles.trendingSaleList}>
         <div>
         <h1 className={styles.h1} >Trending Sales</h1>
-        <Button onClick={handleTrendingSales} sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginBottom: 3, marginLeft: 2}} variant='outlined' size="large">REVEAL OFFERS</Button>
+        <Button onClick={handleTrendingSales} disabled={isLoading} sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginBottom: 3, marginLeft: 2}} variant='outlined' size="large">
+           {isLoading ? <CircularProgress /> : 'REVEAL OFFERS'}
+        </Button>
 
         </div>
         <div className={styles.trendingSales}>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import { Card, CardContent, Grid, TextField, Typography,Button } from '@mui/material';
-import * as productJson from '../../pages/utils/Product.json';
+
 
 export default function ProposeCreate({factoryContract}) {
 
