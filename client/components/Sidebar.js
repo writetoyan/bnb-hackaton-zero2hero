@@ -1,4 +1,4 @@
-import styles from '../styles/sideBar.module.css'
+import styles from '../styles/sidebar.module.css'
 import ComputerIcon from '@mui/icons-material/Computer';
 import MusicNoteOutlinedIcon from '@mui/icons-material/MusicNoteOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';

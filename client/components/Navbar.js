@@ -13,10 +13,10 @@ export default function Navbar() {
         <Toolbar>
             <Typography variant="h6" component="div" > DEALCHAIN </Typography>
             <Typography variant="h6" sx={{ paddingLeft: 8, paddingRight: 3}}> 
-              <Link href='create'> Create Product </Link>
+              <Link href='/app/create'> Create Product </Link>
             </Typography>
             <Typography variant="h6" sx={{flexGrow: 1, padding: 3}}>
-              <Link href='propose'> Propose Product </Link>
+              <Link href='/app/propose'> Propose Product </Link>
             </Typography>
             <ConnectButton />
         </Toolbar>

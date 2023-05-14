@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import * as factoryJson from '../utils/ProductFactory.json';
-import ProposeCreate from '../../components/propose/propose-create';
-import ProposeTables from '../../components/propose/propose-tables';
+import * as factoryJson from '../../utils/ProductFactory.json';
+import CreateProduct from '../../../components/create/create-product';
+import Layout from '../../../components/Layout';
 
-export default function Propose() {
+export default function Create() {
 
     const [factoryContract, setFactoryContract] = useState();
 
@@ -35,8 +35,14 @@ export default function Propose() {
 
     return (
         <>
-            <ProposeCreate factoryContract={factoryContract} />
-            <ProposeTables factoryContract={factoryContract} />
+            <CreateProduct factoryContract={factoryContract} />
         </>
     )
 }
+Create.getLayout = function getLayout(page) {
+    return (
+      <Layout>
+        {page}
+      </Layout>
+    )
+  }

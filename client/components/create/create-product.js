@@ -56,27 +56,29 @@ export default function ProposeCreate({factoryContract}) {
 
 
     return (
-        <Grid item sx={12} container spacing={4} justifyContent = "center">  
-            <Grid item sx={4}>
-                <Card sx={{marginTop: 8}}>
-                    <CardContent sx={{textAlign: 'center' }}>
-                        <Typography sx={{margin: 3, fontWeight: 'bold', fontSize: 24}}> Create a Product for a group buy</Typography>
-                        <Typography sx={{fontStyle: 'italic'}}> Give your requirements and if they are filled, close the deal! </Typography>
-                    </CardContent >
-                    <CardContent sx={{textAlign: 'center' }}>
-                        <TextField sx={{margin: 2}} label="Company Wallet Address" variant="outlined" value={companyAddress} onChange={handleCompanyAddress}/>
-                        <TextField sx={{margin: 2}} label="Product Name" variant="outlined" value={productName} onChange={handleProductName}/>
-                        <TextField sx={{margin: 2}} label="Original market price" variant="outlined" value={marketPrice} onChange={handleMarketPrice}/>
-                        <TextField sx={{margin: 2}} label="Discounted Price" variant="outlined" value={discountedPrice} onChange={handleDiscountedPrice}/>
-                        <TextField sx={{margin: 2}} label="Quantity treshold" variant="outlined" value={quantityTreshold} onChange={handleQuantityTreshold}/>
-                        <TextField sx={{margin: 2}} label="End date in unix time" variant="outlined" value={endDate} onChange={handleEndDate}/>
-                    </CardContent>
-                    <CardContent sx={{textAlign: 'center'}}>
-                        <Button variant='contained' size='large' onClick={createProduct} sx={{margin: 3, marginTop: 4, marginBottom: 8, width: '400px', height: '60px', fontSize: '20px'}} >Create Product</Button>
-                    </CardContent>
+        <div style={{ 'margin-left' : '220px', 'margin-top' : '115px', 'margin-right' : '20px'}}>
+            <Grid item sx={12} container spacing={4} justifyContent = "center">  
+                <Grid item sx={4}>
+                    <Card sx={{marginTop: 8, background: '#F2BC07'}}>
+                        <CardContent sx={{textAlign: 'center' }}>
+                            <Typography sx={{margin: 3, fontWeight: 'bold', fontSize: 24}}> Create a Product for a group buy</Typography>
+                            <Typography sx={{fontStyle: 'italic'}}> Give your requirements and if they are filled, close the deal! </Typography>
+                        </CardContent >
+                        <CardContent sx={{textAlign: 'center' }}>
+                            <TextField sx={{margin: 2}} label="Company Wallet Address" variant="outlined" value={companyAddress} onChange={handleCompanyAddress}/>
+                            <TextField sx={{margin: 2}} label="Product Name" variant="outlined" value={productName} onChange={handleProductName}/>
+                            <TextField sx={{margin: 2}} label="Original market price" variant="outlined" value={marketPrice} onChange={handleMarketPrice}/>
+                            <TextField sx={{margin: 2}} label="Discounted Price" variant="outlined" value={discountedPrice} onChange={handleDiscountedPrice}/>
+                            <TextField sx={{margin: 2}} label="Quantity treshold" variant="outlined" value={quantityTreshold} onChange={handleQuantityTreshold}/>
+                            <TextField sx={{margin: 2}} label="End date in unix time" variant="outlined" value={endDate} onChange={handleEndDate}/>
+                        </CardContent>
+                        <CardContent sx={{textAlign: 'center'}}>
+                            <Button variant='contained' size='large' onClick={createProduct} sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', margin: 3, marginTop: 4, marginBottom: 8, width: '400px', height: '60px', fontSize: '20px'}} >Create Product</Button>
+                        </CardContent>
 
-                </Card>     
-            </Grid> 
-        </Grid>
+                    </Card>     
+                </Grid> 
+            </Grid>
+        </div>
     )
 }

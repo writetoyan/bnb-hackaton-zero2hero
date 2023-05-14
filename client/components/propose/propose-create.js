@@ -14,7 +14,7 @@ export default function ProposeCreate({factoryContract}) {
     const [id, setId] = useState();
     const [preProductContract, setPreProductContract] = useState();
     const [numberOfPotentialBuyer, setNumberOfPotentialBuyer] = useState();
-    
+
     // Textfield handlers
     const handleCompanyAddress = event => {
         setCompanyAddress(event.target.value)
@@ -89,9 +89,10 @@ export default function ProposeCreate({factoryContract}) {
     }
 
     return (
+        <div style={{ 'margin-left' : '220px', 'margin-top' : '115px', 'margin-right' : '20px'}}>
         <Grid item sx={12} container spacing={4} justifyContent = "center">  
             <Grid item sx={4}>
-                <Card sx={{marginTop: 8}}>
+                <Card sx={{marginTop: 8, background: '#F2BC07'}}>
                     <CardContent sx={{textAlign: 'center' }}>
                         <Typography sx={{margin: 3, fontWeight: 'bold', fontSize: 24}}> Propose to your favorite company to create a Product for a group buy</Typography>
                         <Typography sx={{fontStyle: 'italic'}}> Group all the interest for a product at a given price and convince them to sell it at that price </Typography>
@@ -100,10 +101,10 @@ export default function ProposeCreate({factoryContract}) {
                         <TextField sx={{margin: 2}} label="Company Wallet Address" variant="outlined" value={companyAddress} onChange={handleCompanyAddress}/>
                         <TextField sx={{margin: 2}} label="Product Name" variant="outlined" value={productName} onChange={handleProductName}/>
                         <TextField sx={{margin: 2}} label="Query Price" variant="outlined" value={queryPrice} onChange={handleQueryPrice}/>
-                        <Button sx={{marginTop: 3, marginLeft: 2}} variant='outlined' size="large" onClick={proposeHandle}>Propose</Button>
+                        <Button sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginTop: 3, marginLeft: 2}} variant='outlined' size="large" onClick={proposeHandle}>Propose</Button>
                     </CardContent>
                 </Card>     
-                <Card >
+                <Card sx={{background: '#F2BC07'}} >
                     <CardContent sx={{textAlign: 'center' }}>
                         <Typography sx={{margin: 3, fontWeight: 'bold', fontSize: 24}}> Accept to create a Product - Please complete the information below</Typography>
                         <Typography sx={{fontStyle: 'italic'}}> ONLY THE COMPANY DESIGNATED CAN ACCEPT </Typography>
@@ -112,16 +113,17 @@ export default function ProposeCreate({factoryContract}) {
                         <TextField sx={{margin: 2}} size='small' label="ID..." variant="filled" value={id} onChange={handleId}/>
                         <TextField sx={{margin: 2}} size='small' label="READ ONLY - N° OF INTEREST" variant="standard" value={numberOfPotentialBuyer} />
 
-                        <Button sx={{marginTop: 3, marginLeft: 2}} variant='outlined' onClick={checkHandler}>CHECK INTEREST</Button>
+                        <Button sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginTop: 3, marginLeft: 2}} variant='outlined' onClick={checkHandler}>CHECK INTEREST</Button>
                     </CardContent>
                     <CardContent sx={{mx: 4}}>
                         <TextField sx={{margin: 2}} size='small' label="Original market price" variant="filled" value={marketPrice} onChange={handleMarketPrice}/>
                         <TextField sx={{margin: 2}} size='small' label="Quantity treshold" variant="filled" value={quantityTreshold} onChange={handleQuantityTreshold}/>
                         <TextField sx={{margin: 2}} size='small' label="End date in unix time" variant="filled" value={endDate} onChange={handleEndDate}/>
-                        <Button sx={{marginTop: 3, marginLeft: 2}} variant='outlined' onClick={acceptHandler}>CREATE</Button>
+                        <Button sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginTop: 3, marginLeft: 2}} variant='outlined' onClick={acceptHandler}>CREATE</Button>
                     </CardContent>
                 </Card>     
             </Grid> 
         </Grid>
+    </div>
     )
 }

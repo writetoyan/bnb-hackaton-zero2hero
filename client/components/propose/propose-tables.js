@@ -77,14 +77,14 @@ export default function ProposeTables({factoryContract}) {
   }
 
   return (
-  <>
+    <div style={{ 'margin-left' : '220px', 'margin-right' : '20px'}}>
     <Grid sx={{textAlign: 'center'}}>
-      <Button variant='contained' size='large' sx={{margin: 3, marginTop: 8, marginBottom: 8, width: '500px', height: '80px', fontSize: '24px'}} onClick={getPastEvent}>Show Pre Products</Button>
+      <Button variant='contained' size='large' sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', margin: 3, marginTop: 8, marginBottom: 8, width: '500px', height: '80px', fontSize: '24px'}} onClick={getPastEvent}>Show Pre Products</Button>
     </Grid>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
+    <TableContainer component={Paper} >
+      <Table sx={{ minWidth: 700, background: '#F2BC07' }} aria-label="customized table">
+        <TableHead >
+          <TableRow sx={{color: '#F2BC07' }}>
             <StyledTableCell align="left">id</StyledTableCell>
             <StyledTableCell align="right">Company Wallet address</StyledTableCell>
             <StyledTableCell align="right">Product Name</StyledTableCell>
@@ -109,6 +109,6 @@ export default function ProposeTables({factoryContract}) {
         </TableBody>
       </Table>
     </TableContainer>
-  </>
+  </div>
   );
 }
