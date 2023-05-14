@@ -12,31 +12,6 @@ export default function Footer() {
             with the blockchain technology to have more transparancy, 
             security and efficiency when buying online</span>
           </div>
-          <ul className={styles.footer__links}>
-            <li>
-              <a href="" className={styles.footer__link}>Link1</a>
-            </li>
-            <li>
-              <a href="" className={styles.footer__link}>Link2</a>
-            </li>
-            <li>
-              <a href="" className={styles.footer__link}>Link3</a>
-            </li>
-          </ul>
-          <div class={styles.footer__socials}>
-            <a href="" className={styles.footer__social}>
-              {/* <i class="uil uil-github-alt social__icon"></i> */}
-            </a>
-            <a href="" className={styles.footer__social}>
-              {/* <i class="fa-brands fa-codepen"></i> */}
-            </a>
-            <a href="" className={styles.footer__social}>
-              {/* <i class="uil uil-instagram"></i> */}
-            </a>
-            <a href="" className={styles.footer__social}>
-              {/* <i class="uil uil-linkedin-alt"></i> */}
-            </a>
-          </div>
         </div>
         <p className={styles.footer__copy}>© Copyright All rights reserved · 2023</p>
       </div>
