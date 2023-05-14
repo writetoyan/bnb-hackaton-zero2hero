@@ -12,7 +12,8 @@
 }
 
 .createdBy {
-
+  padding: 5px;
+  margin-bottom: 3px;
 }
 
 .category {
@@ -20,9 +21,9 @@
 }
 
 .price {
-
+  padding: 5px;
 }
 
 .saleQuantity {
-
+  padding: 5px;
 }

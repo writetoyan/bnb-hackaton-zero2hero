@@ -11,7 +11,9 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" style={{ 'background': '#F2BC07', 'color':'#0C0E12'}}>
         <Toolbar>
-            <Typography variant="h6" component="div" > DEALCHAIN </Typography>
+            <Typography variant="h6" component="div" > 
+              <Link href='/app/'> DEALCHAIN </Link>
+            </Typography>
             <Typography variant="h6" sx={{ paddingLeft: 8, paddingRight: 3}}> 
               <Link href='/app/create'> Create Product </Link>
             </Typography>

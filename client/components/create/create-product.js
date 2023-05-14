@@ -40,7 +40,7 @@ export default function ProposeCreate({factoryContract}) {
                 ethers.utils.parseEther(marketPrice),
                 ethers.utils.parseEther(discountedPrice),
                 ethers.utils.parseEther(quantityTreshold),
-                endDate
+                ethers.utils.parseEther(endDate)
             )
             console.log(createProductTx)
             setCompanyAddress(""),

@@ -16,7 +16,7 @@ export default function Create() {
             const { ethereum } = window;
             if (ethereum) {
                 try {
-                    const factoryAddress = "0x5FFf9c7cBe4476B1981D54B90AfaB3d94DA6Ae05";
+                    const factoryAddress = "0x63840a264045f5F87eC18dB64353990D67b225c7";
                     const factoryABI = factoryJson.abi;
                     provider = new ethers.providers.Web3Provider(ethereum);
                     signer = provider.getSigner();

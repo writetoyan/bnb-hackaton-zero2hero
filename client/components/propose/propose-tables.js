@@ -15,8 +15,8 @@ import * as preProductJson from '../../pages/utils/PreProduct.json';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.info.light,
-    color: theme.palette.common.white,
+    backgroundColor: '#F2BC07',
+    color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -100,7 +100,7 @@ export default function ProposeTables({factoryContract}) {
               </StyledTableCell>
               <StyledTableCell align="right">{event.company}</StyledTableCell>
               <StyledTableCell align="right">{ethers.utils.parseBytes32String(event.productName)}</StyledTableCell>
-              <StyledTableCell align="right">{ethers.utils.formatEther(event.queryPrice)}</StyledTableCell>
+              <StyledTableCell align="right">{ethers.utils.formatEther(event.queryPrice)} BNB </StyledTableCell>
               <StyledTableCell align="right">
                 <Button onClick={() => handleConfirmInterest(index)}> Confirm interest </Button>
               </StyledTableCell>

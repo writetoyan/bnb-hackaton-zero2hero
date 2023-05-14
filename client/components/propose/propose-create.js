@@ -69,7 +69,7 @@ export default function ProposeCreate({factoryContract}) {
     const acceptHandler = async () => {
         try {
             await getContract(id);
-            await preProductContract.acceptCreateProductOffer(marketPrice, quantityTreshold, endDate);
+            await preProductContract.acceptCreateProductOffer(ethers.utils.parseEther(marketPrice), ethers.utils.parseEther(quantityTreshold), ethers.utils.parseEther(endDate));
             setId("");
             setMarketPrice("");
             setQuantityTreshold("");
@@ -100,7 +100,7 @@ export default function ProposeCreate({factoryContract}) {
                     <CardContent sx={{textAlign: 'center' }}>
                         <TextField sx={{margin: 2}} label="Company Wallet Address" variant="outlined" value={companyAddress} onChange={handleCompanyAddress}/>
                         <TextField sx={{margin: 2}} label="Product Name" variant="outlined" value={productName} onChange={handleProductName}/>
-                        <TextField sx={{margin: 2}} label="Query Price" variant="outlined" value={queryPrice} onChange={handleQueryPrice}/>
+                        <TextField sx={{margin: 2}} label="Query Price BNB" variant="outlined" value={queryPrice} onChange={handleQueryPrice}/>
                         <Button sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginTop: 3, marginLeft: 2}} variant='outlined' size="large" onClick={proposeHandle}>Propose</Button>
                     </CardContent>
                 </Card>     
@@ -116,7 +116,7 @@ export default function ProposeCreate({factoryContract}) {
                         <Button sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginTop: 3, marginLeft: 2}} variant='outlined' onClick={checkHandler}>CHECK INTEREST</Button>
                     </CardContent>
                     <CardContent sx={{mx: 4}}>
-                        <TextField sx={{margin: 2}} size='small' label="Original market price" variant="filled" value={marketPrice} onChange={handleMarketPrice}/>
+                        <TextField sx={{margin: 2}} size='small' label="Original market price BNB" variant="filled" value={marketPrice} onChange={handleMarketPrice}/>
                         <TextField sx={{margin: 2}} size='small' label="Quantity treshold" variant="filled" value={quantityTreshold} onChange={handleQuantityTreshold}/>
                         <TextField sx={{margin: 2}} size='small' label="End date in unix time" variant="filled" value={endDate} onChange={handleEndDate}/>
                         <Button sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginTop: 3, marginLeft: 2}} variant='outlined' onClick={acceptHandler}>CREATE</Button>

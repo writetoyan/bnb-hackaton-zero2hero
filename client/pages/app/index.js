@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import * as factoryJson from '../utils/ProductFactory.json';
 import Layout from '../../components/Layout';
+import Button from '@mui/material/Button'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,7 +20,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Home() {
+
   const [factoryContract, setFactoryContract] = useState();
+  const [productCreated, setProductCreated] = useState([])
   let provider;
 
   useEffect(() => {
@@ -27,7 +30,7 @@ export default function Home() {
       const { ethereum } = window;
       if (ethereum) {
         try {
-          const factoryAddress = "0x1B4933dc0803388F28852875C1b678d476BE598E";
+          const factoryAddress = "0x63840a264045f5F87eC18dB64353990D67b225c7";
           const factoryABI = factoryJson.abi;
           provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
@@ -44,25 +47,44 @@ export default function Home() {
     initContract();
   }, [])
 
+  const getProductCreated = async () => {
+    let filter = await factoryContract.filters.NewProductCreated();
+    let events = await factoryContract.queryFilter(filter);
+    events.forEach((event) => {
+      setProductCreated(prevArray => [...prevArray, event.args])
+      console.log(productCreated)
+    });
+  }
+
+  const handleTrendingSales = async () => {
+    getProductCreated();
+    // const getProduct = await factoryContract.products();
+    // console.log(productCreated)
+  } 
+
   return (
     <div style={{ 'margin-left' : '220px', 'margin-top' : '115px', 'margin-right' : '20px'}}>
       <BannerCoupon />
+      
       <div className={styles.trendingSaleList}>
-        <h1 className={styles.h1}>Trending Sales</h1>
+        <div>
+        <h1 className={styles.h1} >Trending Sales</h1>
+        <Button onClick={handleTrendingSales} sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', marginBottom: 3, marginLeft: 2}} variant='outlined' size="large">REVEAL OFFERS</Button>
+
+        </div>
         <div className={styles.trendingSales}>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={6}>
-              <Product contract={factoryContract} />
-            </Grid>
-            <Grid item xs={6}>
-              <Product />
-            </Grid>
-            <Grid item xs={6}>
-              <Product />
-            </Grid>
-            <Grid item xs={6}>
-              <Product />
-            </Grid>
+            {productCreated.map((product, index) => (
+              <Grid item xs={6} key={index}>
+                <Product 
+                  factoryContract={factoryContract}
+                  company={product.company} 
+                  name={ethers.utils.parseBytes32String(product.name)} 
+                  price={ethers.utils.formatEther(product.price)}
+                  index={index}
+                />
+              </Grid>
+            ))}
           </Grid>
         </div>
       </div>
@@ -80,18 +102,6 @@ export default function Home() {
         <h1 className={styles.h1}>Newest Sales</h1>
         <div className={styles.trendingSales}>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={6}>
-              <Product />
-            </Grid>
-            <Grid item xs={6}>
-              <Product />
-            </Grid>
-            <Grid item xs={6}>
-              <Product />
-            </Grid>
-            <Grid item xs={6}>
-              <Product />
-            </Grid>
           </Grid>
         </div>
       </div>
