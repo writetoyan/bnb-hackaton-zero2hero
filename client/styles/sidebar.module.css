@@ -1,0 +1,28 @@
+.sidebar {
+  position: fixed;
+  width: 200px;
+  top: 80px;
+  left: 0;
+  bottom: 0;
+  background: #0C0E12;
+  color: #F2BC07;
+  border-right: 1px solid;
+}
+
+.sidebarLink {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.sidebarLink:hover {
+  color: #F2BC07;
+  margin-left: 20px;
+  transition: 0.4s;
+}
+
+.line {
+  height: 1px;
+  background-color: #F2BC07;
+  border: none;
+}

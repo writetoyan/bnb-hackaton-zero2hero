@@ -1,0 +1,42 @@
+.bannerCoupon {
+  text-align: center;
+  background-image: url('../public/assets/banner-coupon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 240px;
+  background-position: 50%;
+  position: relative;
+}
+
+.wrapperText {
+  position: absolute;
+  top: 68%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.p {
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: 10px auto 0 auto;
+  background: #0C0E12;
+  padding: 15px 30px;
+  border-radius: 30px;
+  transition: all 200ms ease;
+  text-decoration: none;
+  color: #F2BC07;
+  font-weight: 500;
+}
+
+.btn:hover {
+  translate: 10%;
+}
+

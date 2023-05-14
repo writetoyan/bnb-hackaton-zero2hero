@@ -1,0 +1,29 @@
+.product {
+  background-color: #F2BC07;
+  border-radius: 10px;
+}
+
+.productImg {
+  margin: 15px;
+}
+
+.productName {
+  font-weight: bold;
+}
+
+.createdBy {
+  padding: 5px;
+  margin-bottom: 3px;
+}
+
+.category {
+
+}
+
+.price {
+  padding: 5px;
+}
+
+.saleQuantity {
+  padding: 5px;
+}
