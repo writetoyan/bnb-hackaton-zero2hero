@@ -1,41 +1,29 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import BannerCoupon from '../components/BannerCoupon'
-import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Product from '../components/Product';
+import LayoutWebsite from "../components/LayoutWebsite";
+import styles from '../styles/website.module.css'
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
-export default function Home() {
-  return (
-    <div style={{ 'margin-left' : '200px', 'margin-top' : '30px'}}>
-      <BannerCoupon />
-      <h1 className={styles.h1}>Trending Sales</h1>
-      <div className={styles.trendingSales}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={6}>
-            <Product />
-          </Grid>
-          <Grid item xs={6}>
-            <Product />
-          </Grid>
-          <Grid item xs={6}>
-            <Product />
-          </Grid>
-          <Grid item xs={6}>
-            <Product />
-          </Grid>
-        </Grid>
-      </div>
+export default function Website() {
+  return(
+    <div className={styles.website}>
+      <h1>Empower e-commerce with the blockchain technology to have more transparancy, security </h1>
+      <h3>We are targeting group buying business model. Companies can offer product sells on discount if a treshold is obtained or buyers can group together to offer to buy a product from a target company.</h3>
+      IMAGE
+      3 or 6 Icon for our power
+      How it works
+      step by step
+      Partner
+      Faq
+      Form
+      Deal with us
+      Footer
     </div>
+  );
+
+}
+Website.getLayout = function getLayout(page) {
+  return (
+    <LayoutWebsite>
+      {page}
+    </LayoutWebsite>
   )
 }

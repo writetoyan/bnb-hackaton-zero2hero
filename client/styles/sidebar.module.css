@@ -4,8 +4,9 @@
   top: 80px;
   left: 0;
   bottom: 0;
-  background: #111;
-  color: white;
+  background: #0C0E12;
+  color: #F2BC07;
+  border-right: 1px solid;
 }
 
 .sidebarLink {
@@ -15,8 +16,13 @@
 }
 
 .sidebarLink:hover {
-  color: #fff;
+  color: #F2BC07;
   margin-left: 20px;
   transition: 0.4s;
 }
 
+.line {
+  height: 1px;
+  background-color: #F2BC07;
+  border: none;
+}

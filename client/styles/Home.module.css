@@ -1,6 +1,14 @@
 .h1 {
-  color: white;
+  color: #F2BC07;
   padding-left: 10px;
+}
+
+.categoryList {
+  margin-top: 25px;
+}
+
+#section1-title {
+  color: red;
 }
 /* .container {
   padding: 0 2rem;

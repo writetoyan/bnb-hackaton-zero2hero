@@ -29,6 +29,6 @@ export default function ConnectButton() {
     }
 
     return (
-        <Button id='connectButton' variant='contained' onClick={connect}> Connect </Button>
+        <Button id='connectButton' variant='contained' style={{ 'background': '#0C0E12', 'color':'#F2BC07'}} onClick={connect}> Connect </Button>
     )
 }

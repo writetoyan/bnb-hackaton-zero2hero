@@ -25,7 +25,7 @@ export default function SideBar() {
             </Stack>
           </a>
         </div>
-        <hr />
+        <hr className={styles.line}/>
         <div className={styles.sidebarDown}>
           <a href="" className={styles.sidebarLink}>
             <Stack direction="row" alignItems="center" gap={1}>

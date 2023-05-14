@@ -1,16 +1,17 @@
-.bannerCoupon {
+.bannerCategory {
   text-align: center;
   background-image: url('../public/assets/banner-coupon.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   height: 240px;
   background-position: 50%;
   position: relative;
+  border-radius: 10px;
 }
 
 .wrapperText {
   position: absolute;
-  top: 68%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -27,16 +28,18 @@
   justify-content: center;
   width: fit-content;
   margin: 10px auto 0 auto;
-  background: #0C0E12;
+  background: #fff;
   padding: 15px 30px;
   border-radius: 30px;
   transition: all 200ms ease;
   text-decoration: none;
-  color: #F2BC07;
+  color: navy;
   font-weight: 500;
 }
 
 .btn:hover {
-  translate: 10%;
+  background: blue;
+  color: white;
+  translate: 5%;
 }
 

@@ -9,7 +9,7 @@ import Link from 'next/link'
 export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed" style={{ 'background': '#F2BC07', 'color':'#0C0E12'}}>
         <Toolbar>
             <Typography variant="h6" component="div" > DEALCHAIN </Typography>
             <Typography variant="h6" sx={{ paddingLeft: 8, paddingRight: 3}}> 
