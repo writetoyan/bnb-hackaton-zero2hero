@@ -1,4 +1,16 @@
-.container {
+.h1 {
+  color: #F2BC07;
+  padding-left: 10px;
+}
+
+.categoryList {
+  margin-top: 25px;
+}
+
+#section1-title {
+  color: red;
+}
+/* .container {
   padding: 0 2rem;
 }
 
@@ -126,4 +138,4 @@
   .logo img {
     filter: invert(1);
   }
-}
+} */
