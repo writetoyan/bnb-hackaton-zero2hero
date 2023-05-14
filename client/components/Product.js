@@ -51,17 +51,6 @@ export default function Product({factoryContract, company, name, price, index}) 
     }
   }
 
-  // To participate in the group buy
-  const participate = async () => {
-
-    // try {
-    //   getContract(index);
-    //   await productContract.participate(1, {value: ethers.utils.parseEther(price)});
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  }
-
 
   return (
     <div>
@@ -82,10 +71,11 @@ export default function Product({factoryContract, company, name, price, index}) 
               </>
               : <div></div>}
           </Grid>
-          <Link href={`/app/product/${index}`}> 
-            <Button onClick={participate}>Participate in the sell</Button>
-          
-          </Link>
+          <Grid >
+            <Link href={`/app/product/${index}`}> 
+              <Button size="large" variant="contained" sx={{margin: 2, color: "#F2BC07", ":hover": {bgcolor: 'black'}, background: 'black'}}>Participate in the sell</Button>
+            </Link>
+          </Grid>
         </Grid>
       </a>
     </div>

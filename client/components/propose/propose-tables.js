@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import * as preProductJson from '../../pages/utils/PreProduct.json';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,10 +38,15 @@ export default function ProposeTables({factoryContract}) {
 
   const [pastEvents, setPastEvents] = useState([]);
   const [preProductContract, setPreProductContract] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Getting from the logs, the event emitted when a new preProduct is deployed
   const getPastEvent = async () => {
     let filter = await factoryContract.filters.NewPreProductRequested();
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 8000)
     let events = await factoryContract.queryFilter(filter);
     events.forEach((event) => {
         setPastEvents(prevArray => [...prevArray, event.args])
@@ -79,7 +85,9 @@ export default function ProposeTables({factoryContract}) {
   return (
     <div style={{ 'margin-left' : '220px', 'margin-right' : '20px'}}>
     <Grid sx={{textAlign: 'center'}}>
-      <Button variant='contained' size='large' sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', margin: 3, marginTop: 8, marginBottom: 8, width: '500px', height: '80px', fontSize: '24px'}} onClick={getPastEvent}>Show Pre Products</Button>
+      <Button variant='contained' size='large' sx={{background: '#F2BC07', ":hover": {bgcolor: "#F2BC07"}, color: 'black', margin: 3, marginTop: 8, marginBottom: 8, width: '500px', height: '80px', fontSize: '24px'}} onClick={getPastEvent}>
+      {isLoading ? <CircularProgress /> : 'Show Pre Products'}
+      </Button>
     </Grid>
     <TableContainer component={Paper} >
       <Table sx={{ minWidth: 700, background: '#F2BC07' }} aria-label="customized table">
