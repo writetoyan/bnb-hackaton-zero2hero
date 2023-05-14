@@ -46,9 +46,9 @@ describe("Product Contract", function () {
     it("Should set the owner of the contract to the sender", async () => {
         expect(await product.owner()).to.be.eq(deployer.address);
     })
-    it("Should emit an event when a new contract Porduct is created", async () => {
+    it("Should emit an event when a new contract Product is created", async () => {
         const newProduct = await productFactory.createProduct(deployer.address, NAME, MARKET_PRICE, DISCOUNTED_PRICE, QUANTITY_TRESHOLD, timestamp + DURATION)
-        expect(newProduct).to.emit(productFactory, "NewProductCreated").withArgs(newProduct.address, NAME)
+        expect(newProduct).to.emit(productFactory, "NewProductCreated").withArgs(deployer.address, DISCOUNTED_PRICE, NAME)
     })
     it("Should set the struct ProductInfo for the product", async () => {
         const productInfo = await product.productInfo();

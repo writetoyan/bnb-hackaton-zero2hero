@@ -7,12 +7,6 @@ dotenv.config()
 const config: HardhatUserConfig = {
   solidity: "0.8.17",
   networks: {
-    hardhat: {
-      forking: {
-        url: `${process.env.BNB_RPC_URL}`,
-        blockNumber: 28056728
-      }
-    },
     bnb: {
       url: `${process.env.BNB_TESTNET_RPC_URL}`,
       accounts: [process.env.PRIVATE_KEY!]

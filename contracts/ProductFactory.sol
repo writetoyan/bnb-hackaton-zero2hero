@@ -15,7 +15,7 @@ contract ProductFactory {
     PreProduct[] public preProducts;
 
     /// @notice Event emitted when a new product is created
-    event NewProductCreated(address indexed product, bytes32 indexed name);
+    event NewProductCreated(address indexed company, uint256 price, bytes32 indexed name);
     /// @notice Eent emitted when a pre product is requested
     event NewPreProductRequested(address indexed company, bytes32 indexed productName, uint256 queryPrice);
 
@@ -27,7 +27,7 @@ contract ProductFactory {
     function createProduct(address company, bytes32 _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) external returns (bool productCreated) {
         Product product = new Product(company, address(treasury), _name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
         products.push(product);
-        emit NewProductCreated(address(product), _name);
+        emit NewProductCreated(company, _discountedPrice, _name);
         return productCreated;
     }
 
