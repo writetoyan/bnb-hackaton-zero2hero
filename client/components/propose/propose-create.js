@@ -14,7 +14,7 @@ export default function ProposeCreate({factoryContract}) {
     const [id, setId] = useState();
     const [preProductContract, setPreProductContract] = useState();
     const [numberOfPotentialBuyer, setNumberOfPotentialBuyer] = useState();
-    let allo;
+    
     // Textfield handlers
     const handleCompanyAddress = event => {
         setCompanyAddress(event.target.value)
