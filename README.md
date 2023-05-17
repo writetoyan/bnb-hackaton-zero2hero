@@ -78,3 +78,34 @@ This contract is used to mint a Soulbound token for the users. This token allow 
 
 ![Tests](/assets/tests.png "Tests")
 ![Soulbound Tests](/assets/Soulbound%20tests.png "Soulbound tests")
+
+
+## DApp
+
+### Homepage - Mint SoulBound token and reveal all the offers 
+
+![Homepage](/assets/Homepage.png "Homepage")
+
+### Mint SoulBound token page
+
+![soulboundMint](/assets/soulboundMint.png "soulboundMint")
+
+### Create a Product page
+
+![createProduct](/assets/createProduct.png "createProduct")
+
+### Propose a company to create Product for group buy page
+
+![proposeProduct](/assets/proposeProduct.png "proposeProduct")
+
+### Company can consult the proposal from the client and get the number of interest
+
+![proposedProduct](/assets/proposedProduct.png "proposedProduct")
+
+### Buy and Evaluate page
+
+![buyAndEvaluate](/assets/buyAndEvaluate.png "buyAndEvaluate")
+
+### Withdraw fund page      
+
+![withdraw](/assets/withdraw.png "withdraw")
