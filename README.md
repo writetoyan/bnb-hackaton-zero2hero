@@ -7,13 +7,14 @@ Video demo: https://youtu.be/LWVUgorBIcc
 
 ## Project abstract: 
 
-This project is about to empower e-commerce with the blockchain technology to have more transparancy, security and efficiency when buying online. We are targeting group buying business model. Companies can offer product sells on discount if a treshold is obtained or buyers can group together to offer to buy a product from a target company.
+This project is about to empower e-commerce with the blockchain technology to have more transparency, security and efficiency when buying online. We are targeting group buying business model. Companies can offer product sells on discount if a treshold is obtained or buyers can group together to offer to buy a product from a target company.
 
 Advantages using blockchain for consumers:
 
 - Their money is hold by a smart contract until they receive their product.
 - The money is send to the sellers only if a certain percentage of buyers vote for the conformity / satisfaction of the product with the description provided. 
 - They can buy without spending time searching if the seller / product is legit. 
+- They can build their reputation as a buyer that can be used by other platforms or flex it to others thanks to Soulbound token.
 
 Advantages using blockchain for companies: 
 
@@ -68,6 +69,12 @@ This contract is created from the factory contract by anyone who want to make a 
 - If he estimate that he want to do the deals, he can call the accept function on that contract.
 - This function will trigger the creation of a real Product contract automatically to start the classic selling process.
 
+
+### DealChainSoul contract
+
+This contract is used to mint a Soulbound token for the users. This token allow companies to get the users info like tehir name and delivery address. It also keep track of the reputation of the user as a buyer. Other social dApp can the use this reputation to unlock different functionalities.   
+
 ## Tests 
 
 ![Tests](/assets/tests.png "Tests")
+![Soulbound Tests](/assets/Soulbound%20tests.png "Soulbound tests")
