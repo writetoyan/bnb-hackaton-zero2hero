@@ -3,6 +3,7 @@
 pragma solidity 0.8.17;
 
 import './libraries/DealChain.sol';
+import './DealChainSoul.sol';
 
 error OfferEnded();
 error AmountSentTooLow();
@@ -32,6 +33,8 @@ contract Product {
     uint256 public quantitySold;
     address public owner;
     address private treasury;
+    address private dealChainSoulAddress;
+    DealChainSoul dealChainSoul;
     DealChain.ProductInfo public productInfo;
     DealChain.ProductConformity public productConformity;
     mapping(address => uint256) public quantityBought;
@@ -48,9 +51,10 @@ contract Product {
     /// @notice Event emitted when participant voted for conform product. The amount comes from people who evaluated the product as non conform but lost
     event EvaluationConformPriceWithdrawn(address participant, uint amount);
 
-    constructor(address _owner, address _treasury, bytes32 _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) {
+    constructor(address _owner, address _treasury, address _dealChainSoulAddress, bytes32 _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) {
         owner = _owner;
         treasury = _treasury;
+        dealChainSoul = DealChainSoul(_dealChainSoulAddress);
         DealChain.ProductInfo memory _productInfo = DealChain.ProductInfo(_name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
         productInfo = _productInfo;
     }
@@ -83,6 +87,7 @@ contract Product {
         }
         quantitySold += quantityToBuy;
         quantityBought[msg.sender] += quantityToBuy;
+        addReputationPoint();
         emit ParticipateGroupBuy(msg.sender, quantityToBuy);
     }
     
@@ -99,6 +104,7 @@ contract Product {
         if (conformity) {
             productConformity.conform += votingPower;
             participantEvaluation[msg.sender][true] += votingPower;
+            addReputationPoint();
             emit EvaluateConform(msg.sender, votingPower);
         } else {
             if (msg.value < AMOUNT_TO_LOCK_FOR_VOTING_NO_CONFORM) {
@@ -106,6 +112,7 @@ contract Product {
             }
             productConformity.noConform += votingPower;
             participantEvaluation[msg.sender][false] += votingPower;
+            addReputationPoint();
             emit EvaluateNoConform(msg.sender, votingPower);
         }
     }
@@ -132,5 +139,11 @@ contract Product {
             revert WithdrawFailed();
         }
         emit EvaluationConformPriceWithdrawn(msg.sender, amountWon);
+    }
+
+    /// @dev Function called after an action to add reputation point to the soulbound token
+    function addReputationPoint() private {
+        uint soulId = dealChainSoul.userSoulId(msg.sender);
+        dealChainSoul.addReputationPoint(soulId);
     }
 }

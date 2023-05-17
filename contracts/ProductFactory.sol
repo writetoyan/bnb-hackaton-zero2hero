@@ -5,12 +5,14 @@ pragma solidity 0.8.17;
 import './Product.sol';
 import './PreProduct.sol';
 import './Treasury.sol';
+import './DealChainSoul.sol';
 
 /// @title Product Contract Factory
 /// @notice This contract should be used to deploy the Product contract
 contract ProductFactory {
     
     Treasury public treasury;
+    DealChainSoul public dealChainSoul;
     Product[] public products;  
     PreProduct[] public preProducts;
 
@@ -21,11 +23,12 @@ contract ProductFactory {
 
     constructor() {
         treasury = new Treasury();
+        dealChainSoul = new DealChainSoul();
     }
 
     /// @notice Main function used to deploy a new Product contract
     function createProduct(address company, bytes32 _name, uint256 _marketPrice, uint256 _discountedPrice, uint128 _quantityTreshold, uint128 _endDate) external returns (bool productCreated) {
-        Product product = new Product(company, address(treasury), _name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
+        Product product = new Product(company, address(treasury), address(dealChainSoul), _name, _marketPrice, _discountedPrice, _quantityTreshold, _endDate);
         products.push(product);
         emit NewProductCreated(company, _discountedPrice, _name);
         return productCreated;

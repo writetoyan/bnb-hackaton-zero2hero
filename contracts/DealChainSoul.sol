@@ -24,6 +24,7 @@ contract DealChainSoul is ERC721 {
     }
 
     UserInfo[] private userInfo;
+    mapping(address => uint) public userSoulId;
 
     constructor() ERC721("DealChainSoul", "DCS") {}
 
@@ -32,6 +33,7 @@ contract DealChainSoul is ERC721 {
         uint currentTokenId = _tokenIdCounter.current();
         UserInfo memory  _userInfo = UserInfo(_name, _deliveryAddress, 0);
         userInfo.push(_userInfo);
+        userSoulId[msg.sender] = currentTokenId;
         _safeMint(msg.sender, currentTokenId);
         _tokenIdCounter.increment();
     }
@@ -43,6 +45,12 @@ contract DealChainSoul is ERC721 {
             revert YouCannotChangeOtherUserInfo();
         }
         userInfo[tokenId].deliveryAddress = _deliveryAddress;
+        return true;
+    }
+
+    /// @notice function used by the platform to add reputation point to the user 
+    function addReputationPoint(uint tokenId) external returns (bool) {
+        userInfo[tokenId].reputation += 1;
         return true;
     }
 

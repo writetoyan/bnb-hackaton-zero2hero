@@ -24,4 +24,10 @@ library DealChain {
         uint256 noConform;
         uint256 conform;
     }
+
+    struct UserInfo {
+        string name;
+        string deliveryAddress;
+        uint reputation;
+    }
 }
