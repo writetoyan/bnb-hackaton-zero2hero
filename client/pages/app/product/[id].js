@@ -20,7 +20,7 @@ export default function ProductDetails() {
     useEffect(() => {
         const initProductContract = async () => {
             const factoryABI = factoryJson.abi;
-            const factoryAddress = "0x63840a264045f5F87eC18dB64353990D67b225c7";
+            const factoryAddress = "0xc4664AfCd61582b8F36Fe4932473B25F3d3264bc";
             provider = new ethers.providers.Web3Provider(ethereum);
             signer = provider.getSigner();
             setFactoryContract(new ethers.Contract(

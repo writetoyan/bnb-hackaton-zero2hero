@@ -17,7 +17,7 @@ export default function Propose() {
             const { ethereum } = window;
             if (ethereum) {
                 try {
-                    const factoryAddress = "0x63840a264045f5F87eC18dB64353990D67b225c7";
+                    const factoryAddress = "0xc4664AfCd61582b8F36Fe4932473B25F3d3264bc";
                     const factoryABI = factoryJson.abi;
                     provider = new ethers.providers.Web3Provider(ethereum);
                     signer = provider.getSigner();

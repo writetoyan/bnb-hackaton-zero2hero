@@ -1,5 +1,5 @@
 import styles from '../../styles/Home.module.css'
-import BannerCoupon from '../../components/BannerCoupon'
+import SoulboundBanner from '../../components/SoulboundBanner'
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -32,7 +32,7 @@ export default function Home() {
       const { ethereum } = window;
       if (ethereum) {
         try {
-          const factoryAddress = "0x63840a264045f5F87eC18dB64353990D67b225c7";
+          const factoryAddress = "0xc4664AfCd61582b8F36Fe4932473B25F3d3264bc";
           const factoryABI = factoryJson.abi;
           provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
@@ -68,7 +68,7 @@ export default function Home() {
 
   return (
     <div style={{ 'margin-left' : '220px', 'margin-top' : '115px', 'margin-right' : '20px'}}>
-      <BannerCoupon />
+      <SoulboundBanner />
       
       <div className={styles.trendingSaleList}>
         <div>
